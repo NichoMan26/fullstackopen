@@ -1,0 +1,66 @@
+NewNoteDiagram Excercies 0.4
+  participant browser
+  participant server
+
+  btowser->>server POST https://studies.cs.helsinki.fi/exampleapp/new_note
+  Status Code: 301 Found
+  Payload {"note":"new note"}
+  activate server
+  server-->>redirect https://studies.cs.helsinki.fi/exampleapp/notes
+  deactivate server
+
+  btowser->>server GET https://studies.cs.helsinki.fi/exampleapp/notes
+  activate server
+  server-->>browser  HTML document
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate server
+  server-->>browser: the css file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+  activate server
+  server-->>browser: the JavaScript file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+  activate server
+  server-->>browser: [{ "content": "IronMan", "date": "2025-03-22T21:10:50.391Z" }, ... ]
+  deactivate server
+
+UserGoToSPADiagram Excercies 0.5
+  participant browser
+  participant server
+
+  btowser->>server GET https://studies.cs.helsinki.fi/exampleapp/spa
+  activate server
+  server-->>browser  HTML document
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate server
+  server-->>browser: the css file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+  activate server
+  server-->>browser: the JavaScript file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+  activate server
+  server-->>browser: [{ "content": "IronMan II", "date": "2025-03-22T21:16:36.663Z" }, ... ]
+  deactivate server
+
+NewNoteInSPADiagram Excercies 0.6
+  participant browser
+  participant server
+
+  btowser->>server POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+  Payload {content: "new note", date: "2025-03-23T15:33:14.483Z"}
+  Status Code: 201 Created
+  Response: {"message":"note created"}
+  activate server
+  server-->>browser  HTML document
+  deactivate server
